@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.oracle.ebp.dao.OrderListMapper">
+	<!-- 查询个人订单详情 -->
+	<select id = "showUserOrderList" parameterType = "int" resultType = "OrderList">
+		select oid,descs,price,quantity,amount from orderlist where  oid = #{0}
+	</select>
+	
+	<insert id="addOrderList" parameterType="addOrderBean">
+		insert into
+		orderlist(descs,price,quantity,amount,oid)
+		values
+		(#{descs},#{price},#{quantity},#{amount},#{oid})
+
+	</insert>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.oracle.ebp.dao.ImagesMapper">
+	<!-- 获取所有票项详情 -->
+	<select id="getAllTicketDetail" resultType="ticketdetail">
+		select * from ticketdetail
+	</select>
+	
+	<!-- 获取所有票项 -->
+	<select id="getTicketList" resultType="ticket">
+		select * from ticket
+	</select>
+	
+	<!-- 根据情况获取票项详情 -->
+	<select id="getTicketDetailListByContion" resultType="ticketdetail">
+		select * from ticketdetail where descs like concat('%',#{0},'%')
+	</select>
+</mapper>

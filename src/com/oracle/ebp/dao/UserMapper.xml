@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.ebp.dao.UserMapper">
+
+	<!-- 用户注册 -->
+	<insert id="saveUser" parameterType="user">
+		insert into
+		user(username,password,name,gender,age,idCard,address,telno,regTime,balance,status)
+		values(#{username},#{password},#{name},#{gender},#{age},#{idCard},#{address},#{telno},#{regTime},#{balance},#{status})
+	</insert>
+
+	<!-- 用户查询 -->
+	<select id="selectBy" parameterType="String" resultType="user">
+		select *
+		from user where username=#{username}
+	</select>
+
+	<!-- 账户充值 -->
+	<update id="updateBalance" parameterType="user">
+		update user set balance
+		= #{balance} where username = #{username}
+	</update>
+
+	<!-- 修改个人信息 -->
+	<update id="updateUser" parameterType="user">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="#{0} != null and #{0} != ''">name = #{0},</if>
+			<if test="#{1} != null and #{1} != ''">age = #{1},</if>
+			<if test="#{2} != null and #{2} != ''">gender = #{2},</if>
+			<if test="#{3} != null and #{3} != ''">password = #{3},</if>
+			<if test="#{4} != null and #{4} != ''">address = #{4},</if>
+			<if test="#{5} != null and #{5} != ''">telno = #{5},</if>
+		</trim>
+		where username = #{6}
+	</update>
+
+	<!-- 用户结算购物车 -->
+	<update id="Consume">
+		update user set balance=balance-#{1} where
+		username=#{0}
+	</update>
+</mapper>

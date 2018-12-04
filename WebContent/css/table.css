@@ -1,0 +1,35 @@
+	/* Border styles */
+#table-2 thead, #table-2 tr {
+border-top-width: 1px;
+border-top-style: solid;
+border-top-color: rgb(165, 166, 140);
+}
+#table-2 {
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: rgb(165, 166, 140);
+}
+
+/* Padding and font style */
+#table-2 td {
+padding: 5px 10px;
+font-size: 12px;
+font-family: Verdana;
+color: rgb(0, 0, 0);
+text-align:center;
+}
+#table-2 th {
+padding: 5px 10px;
+font-size: 16px;
+font-family: Verdana;
+color: rgb(0, 0, 0);
+font-weight: bold;	
+text-align:center;
+}
+/* Alternating background colors */
+#table-2 tr:nth-child(even) {
+background: #CCFFFF
+}
+#table-2 tr:nth-child(odd) {
+background: #FFF
+}

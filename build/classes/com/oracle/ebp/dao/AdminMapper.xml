@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.oracle.ebp.dao.AdminMapper">
+	<!-- 管理员查询 -->
+    <select id="selectBy" parameterType="String" resultType="admin">
+        select * from adminuser where 
+        	userName=#{username}
+    </select>
+    
+    <!-- 列出所有用户 -->
+    <select id = "listAllUsers" resultType = "user">
+    	select * from user
+    </select>
+    
+    <!-- 根据注册时间查询用户 -->
+	<select id="queryOrdersByDate" resultType="user">
+		select * from user 
+		where regTime between #{0} and #{1}
+	</select>
+    
+    <!-- 根据情况查询用户 -->
+    <select id="queryUsersByCondition" resultType="user">
+		select * from user where 1 = 1
+		<if test = "#{0} != null and #{0} != ''">
+			and name like concat('%',#{0},'%')
+		</if>
+		<if test = "#{1} != null and #{1} != ''">
+			and idCard like concat('%',#{1},'%')
+		</if>
+		<if test = "#{2} != null and #{2} != ''">
+			and telno like concat('%',#{2},'%')
+		</if>
+	</select>
+    
+    <!-- 更新状态 -->
+    <update id = "updateUserStatusById" parameterType = "Integer">
+    	update user set status = #{0} where uid = #{1}
+    </update>
+</mapper>

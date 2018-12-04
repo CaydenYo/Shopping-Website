@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace = "com.oracle.ebp.dao.ShoppingCartMapper">
+	
+	<resultMap type="com.oracle.ebp.domain.QueryShoppingCartBean" id="queryShoppingCartBean">
+		<id property="shoppingcar.userId" column="uid"/>
+		<result property="shoppingcar.scid" column="scid"/>
+		<result property="shoppingcar.addTime" column="addTime"/>
+		<result property="shoppingcardetail.tid" column="tid"/>
+		<result property="ticket.descs" column="descs"/>
+		<result property="ticket.price" column="price"/>
+		<result property="shoppingcardetail.quantity" column="quantity"/>
+	</resultMap>
+	
+	<insert id = "addShoppingCart" parameterType = "addShoppingCartBean" useGeneratedKeys="true" keyProperty="scid">
+		insert into shoppingcar (userID) values(#{uid})
+	</insert>
+	
+	<insert id="addShoppingCartDetail" parameterType = "addShoppingCartBean">
+		insert into shoppingcardetail(scid,tid,quantity) values(#{scid},#{tid},#{quantity})
+	</insert>
+	
+	<select id = "showShoppingCart" parameterType = "user" resultType = "queryShoppingCartBean">
+				select *
+    			from shoppingcar sc,shoppingcardetail scd,ticket t
+    			where sc.scid = scd.scid and scd.tId = t.tid and sc.userId = #{uid}
+	</select>
+	
+	<delete id="deleteShoppingCartDetail" parameterType="int">
+    			delete from shoppingcardetail where scid=#{0}
+    </delete>
+	
+	<delete id="deleteShoppingCart" parameterType="int">
+    			delete from shoppingcar where scid=#{0}
+    </delete>
+</mapper>
